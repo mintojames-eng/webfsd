@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DigiLocker — Your Digital Document Vault | Government of India</title>
+    <meta name="description"
+        content="Access, share and instantly verify trusted government-issued documents, certificates and digital records through DigiLocker — India's official digital document platform." />
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+
+    <!-- Gov Bar -->
+    <div class="gov-bar">
+        <div class="container">
+            <div class="gov-bar-left">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                    <circle cx="14" cy="14" r="14" fill="none" />
+                    <text x="14" y="19" text-anchor="middle" font-size="18" fill="rgba(255,255,255,0.9)">🏛</text>
+                </svg>
+                <a href="https://www.india.gov.in/" target="_blank" rel="noopener">Government of India</a>
+                <span style="opacity:.4">|</span>
+                <span>Ministry of Electronics &amp; IT</span>
+            </div>
+            <div class="gov-bar-right">
+                <a href="#">Skip to Content</a>
+                <select class="lang-select" id="langSelect" aria-label="Select Language">
+                    <option value="en">English</option>
+                    <option value="hi">हिंदी</option>
+                    <option value="bn">বাংলা</option>
+                    <option value="gu">ગુજરાતી</option>
+                    <option value="kn">ಕನ್ನಡ</option>
+                    <option value="ml">മലയാളം</option>
+                    <option value="mr">मराठी</option>
+                    <option value="ta">தமிழ்</option>
+                    <option value="te">తెలుగు</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+        <div class="container">
+            <a href="index.html" class="nav-logo" aria-label="DigiLocker Home">
+                <div class="nav-logo-icon" aria-hidden="true">D</div>
+                <span class="nav-logo-text">Digi<span>Locker</span></span>
+            </a>
+
+            <div class="nav-links" role="list">
+                <a href="index.html" class="active" role="listitem">Home</a>
+                <a href="#categories" role="listitem">Documents</a>
+                <a href="#how-it-works" role="listitem">How It Works</a>
+                <a href="#states" role="listitem">By State</a>
+                <a href="#" role="listitem">About</a>
+                <a href="#" role="listitem">Partners</a>
+            </div>
+
+            <div class="nav-actions">
+                <button class="btn-icon-nav" id="searchBtn" aria-label="Search documents" title="Search">🔍</button>
+                <button class="btn-icon-nav" id="themeToggle" aria-label="Toggle dark mode"
+                    title="Toggle theme">🌙</button>
+                <a href="signin.html" class="btn btn-primary btn-sm" id="signInBtn">Sign In</a>
+                <button class="hamburger" id="hamburger" aria-label="Toggle mobile menu" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Nav -->
+    <div class="mobile-nav" id="mobileNav" role="menu">
+        <a href="index.html" role="menuitem">🏠 Home</a>
+        <a href="#categories" role="menuitem">📂 Documents</a>
+        <a href="#how-it-works" role="menuitem">ℹ️ How It Works</a>
+        <a href="#states" role="menuitem">🗺️ By State</a>
+        <a href="#" role="menuitem">ℹ️ About</a>
+        <a href="#" role="menuitem">🤝 Partners</a>
+        <a href="signin.html" class="btn btn-primary">Sign In / Register</a>
+    </div>
+
+    <!-- Search Modal -->
+    <div class="search-modal" id="searchModal" role="dialog" aria-label="Search documents" aria-modal="true">
+        <div class="search-box">
+            <div class="search-input-wrap">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="8" />
+                    <path d="m21 21-4.35-4.35" />
+                </svg>
+                <input type="text" placeholder="Search documents, issuers, categories…" id="searchInput"
+                    aria-label="Search query" autofocus />
+                <button class="btn btn-ghost btn-sm" id="searchClose">✕ Esc</button>
+            </div>
+            <div class="search-suggestions">
+                <p class="label-sm" style="padding:4px 8px 8px;">Quick searches</p>
+                <span class="search-tag" onclick="app.fillSearch('Aadhaar Card')">🪪 Aadhaar Card</span>
+                <span class="search-tag" onclick="app.fillSearch('PAN Card')">💳 PAN Card</span>
+                <span class="search-tag" onclick="app.fillSearch('Driving License')">🚗 Driving License</span>
+                <span class="search-tag" onclick="app.fillSearch('Degree Certificate')">🎓 Degree Certificate</span>
+                <span class="search-tag" onclick="app.fillSearch('Income Certificate')">📜 Income Certificate</span>
+                <span class="search-tag" onclick="app.fillSearch('Vehicle RC')">🏍 Vehicle RC</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero" id="main-section" aria-labelledby="hero-heading">
+        <div class="hero-blob hero-blob-1" aria-hidden="true"></div>
+        <div class="hero-blob hero-blob-2" aria-hidden="true"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge" aria-label="Official government platform">
+                    <span class="dot" aria-hidden="true"></span>
+                    Official Government Platform
+                </div>
+                <h1 class="headline-xl" id="hero-heading">Your Documents,<br /><span>Always With You</span></h1>
+                <p class="hero-sub">Access, share and verify 900+ Crore government-issued documents securely. One vault
+                    for Aadhaar, PAN, licenses, certificates and more.</p>
+                <div class="hero-actions">
+                    <a href="signin.html" class="btn btn-white btn-lg" id="heroGetStarted">
+                        Get Started Free →
+                    </a>
+                    <a href="#categories" class="btn btn-lg"
+                        style="background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.3);backdrop-filter:blur(8px)">
+                        Explore Documents
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual" aria-hidden="true">
+                <div class="hero-card">
+                    <div class="hero-card-header">
+                        <span class="hero-card-title">📁 My Documents</span>
+                        <span class="hero-card-badge">✓ Verified</span>
+                    </div>
+                    <div class="hero-doc-list">
+                        <div class="hero-doc-item">
+                            <div class="hero-doc-icon" style="background:rgba(59,130,246,.2)">🪪</div>
+                            <div>
+                                <div class="hero-doc-name">Aadhaar Card</div>
+                                <div class="hero-doc-issuer">UIDAI</div>
+                            </div>
+                            <span class="hero-doc-status">✓ Valid</span>
+                        </div>
+                        <div class="hero-doc-item">
+                            <div class="hero-doc-icon" style="background:rgba(245,158,11,.2)">💳</div>
+                            <div>
+                                <div class="hero-doc-name">PAN Card</div>
+                                <div class="hero-doc-issuer">Income Tax Dept.</div>
+                            </div>
+                            <span class="hero-doc-status">✓ Valid</span>
+                        </div>
+                        <div class="hero-doc-item">
+                            <div class="hero-doc-icon" style="background:rgba(16,185,129,.2)">🚗</div>
+                            <div>
+                                <div class="hero-doc-name">Driving License</div>
+                                <div class="hero-doc-issuer">MoRTH</div>
+                            </div>
+                            <span class="hero-doc-status">✓ Valid</span>
+                        </div>
+                        <div class="hero-doc-item">
+                            <div class="hero-doc-icon" style="background:rgba(139,92,246,.2)">🎓</div>
+                            <div>
+                                <div class="hero-doc-name">Degree Certificate</div>
+                                <div class="hero-doc-issuer">ABC University</div>
+                            </div>
+                            <span class="hero-doc-status">✓ Valid</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats-section" aria-labelledby="stats-heading">
+        <div class="container">
+            <h2 class="sr-only" id="stats-heading">DigiLocker Statistics</h2>
+            <div class="stats-grid">
+                <div class="stat-item reveal">
+                    <div class="stat-number" data-target="700" data-suffix="Cr+">0</div>
+                    <div class="stat-label">Registered Users</div>
+                </div>
+                <div class="stat-item reveal" style="transition-delay:.1s">
+                    <div class="stat-number" data-target="900" data-suffix="Cr+">0</div>
+                    <div class="stat-label">Issued Documents</div>
+                </div>
+                <div class="stat-item reveal" style="transition-delay:.2s">
+                    <div class="stat-number" data-target="1600" data-suffix="+">0</div>
+                    <div class="stat-label">Partner Issuers</div>
+                </div>
+                <div class="stat-item reveal" style="transition-delay:.3s">
+                    <div class="stat-number" data-target="36" data-suffix=" States">0</div>
+                    <div class="stat-label">States & UTs Covered</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Document Categories -->
+    <section class="categories-section" id="categories" aria-labelledby="cat-heading">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="label-sm">📂 Browse by Category</p>
+                <h2 class="headline-lg" id="cat-heading">Find Any Document</h2>
+                <p>From identity proofs to educational certificates — all in one secure vault.</p>
+            </div>
+            <div class="categories-grid">
+                <article class="category-card reveal" style="--cat-from:#1e40af;--cat-to:#3730a3;"
+                    onclick="app.openCategory('identity')" tabindex="0" role="button"
+                    aria-label="Identity Documents category">
+                    <div class="cat-icon-wrap">🪪</div>
+                    <div class="cat-title">Identity Documents</div>
+                    <div class="cat-desc">Aadhaar, PAN, Voter ID, Passport and more</div>
+                    <div class="cat-count">250+ documents</div>
+                    <span class="cat-arrow">→</span>
+                </article>
+                <article class="category-card reveal" style="--cat-from:#065f46;--cat-to:#047857;transition-delay:.05s"
+                    onclick="app.openCategory('education')" tabindex="0" role="button"
+                    aria-label="Education and Learning category">
+                    <div class="cat-icon-wrap">🎓</div>
+                    <div class="cat-title">Education &amp; Learning</div>
+                    <div class="cat-desc">Degrees, marksheets, certificates &amp; transcripts</div>
+                    <div class="cat-count">400+ documents</div>
+                    <span class="cat-arrow">→</span>
+                </article>
+                <article class="category-card reveal" style="--cat-from:#7c2d12;--cat-to:#b45309;transition-delay:.1s"
+                    onclick="app.openCategory('health')" tabindex="0" role="button"
+                    aria-label="Health and Wellness category">
+                    <div class="cat-icon-wrap">🏥</div>
+                    <div class="cat-title">Health &amp; Wellness</div>
+                    <div class="cat-desc">Health ID, vaccination records, medical certificates</div>
+                    <div class="cat-count">120+ documents</div>
+                    <span class="cat-arrow">→</span>
+                </article>
+                <article class="category-card reveal" style="--cat-from:#164e63;--cat-to:#0369a1;transition-delay:.05s"
+                    onclick="app.openCategory('transport')" tabindex="0" role="button"
+                    aria-label="Transport and Infrastructure category">
+                    <div class="cat-icon-wrap">🚗</div>
+                    <div class="cat-title">Transport &amp; Infrastructure</div>
+                    <div class="cat-desc">Driving license, RC, vehicle permits &amp; NOC</div>
+                    <div class="cat-count">80+ documents</div>
+                    <span class="cat-arrow">→</span>
+                </article>
+                <article class="category-card reveal" style="--cat-from:#3b0764;--cat-to:#6d28d9;transition-delay:.1s"
+                    onclick="app.openCategory('government')" tabindex="0" role="button"
+                    aria-label="Government and Public Sector category">
+                    <div class="cat-icon-wrap">🏛</div>
+                    <div class="cat-title">Government &amp; Public Sector</div>
+                    <div class="cat-desc">Income, caste, domicile &amp; government orders</div>
+                    <div class="cat-count">300+ documents</div>
+                    <span class="cat-arrow">→</span>
+                </article>
+                <article class="category-card reveal" style="--cat-from:#0c4a6e;--cat-to:#0e7490;transition-delay:.15s"
+                    onclick="app.openCategory('skill')" tabindex="0" role="button"
+                    aria-label="Skill and Vocational Training category">
+                    <div class="cat-icon-wrap">🛠</div>
+                    <div class="cat-title">Skill &amp; Vocational</div>
+                    <div class="cat-desc">NSDC certificates, trade certificates &amp; skill badges</div>
+                    <div class="cat-count">150+ documents</div>
+                    <span class="cat-arrow">→</span>
+                </article>
+            </div>
+            <div style="text-align:center;margin-top:32px" class="reveal">
+                <a href="signin.html" class="btn btn-outline">View All Categories →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-section" id="how-it-works" aria-labelledby="how-heading">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="label-sm">⚡ Quick &amp; Easy</p>
+                <h2 class="headline-lg" id="how-heading">Getting Started Is Simple</h2>
+                <p>Four easy steps to access all your documents digitally, anytime, anywhere.</p>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card reveal">
+                    <div class="step-num">1</div>
+                    <div class="step-icon">📱</div>
+                    <div class="step-title">Register</div>
+                    <div class="step-desc">Sign up using your Aadhaar number or mobile number in under 2 minutes.</div>
+                </div>
+                <div class="step-card reveal" style="transition-delay:.1s">
+                    <div class="step-num">2</div>
+                    <div class="step-icon">✅</div>
+                    <div class="step-title">Verify Identity</div>
+                    <div class="step-desc">Authenticate via OTP on your Aadhaar-linked mobile number securely.</div>
+                </div>
+                <div class="step-card reveal" style="transition-delay:.2s">
+                    <div class="step-num">3</div>
+                    <div class="step-icon">📂</div>
+                    <div class="step-title">Fetch Documents</div>
+                    <div class="step-desc">Pull official documents directly from government issuers into your vault.
+                    </div>
+                </div>
+                <div class="step-card reveal" style="transition-delay:.3s">
+                    <div class="step-num">4</div>
+                    <div class="step-icon">📤</div>
+                    <div class="step-title">Share &amp; Verify</div>
+                    <div class="step-desc">Share documents instantly with a link or QR code. Always legally valid.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- State Explorer -->
+    <section class="states-section" id="states" aria-labelledby="states-heading">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="label-sm">🗺️ Explore by Region</p>
+                <h2 class="headline-lg" id="states-heading">Available Across India</h2>
+                <p>DigiLocker partners span every state and union territory of India.</p>
+            </div>
+            <div class="states-scroll reveal" role="list">
+                <div class="state-pill active" role="listitem" onclick="app.selectState(this,'Andhra Pradesh')"><span
+                        class="state-flag">🏳</span>
+                    <div>
+                        <div class="state-name">Andhra Pradesh</div>
+                        <div class="state-issuer">90+ Issuers</div>
+                    </div>
+                </div>
+                <div class="state-pill" role="listitem" onclick="app.selectState(this,'Assam')"><span
+                        class="state-flag">🏳</span>
+                    <div>
+                        <div class="state-name">Assam</div>
+                        <div class="state-issuer">50+ Issuers</div>
+                    </div>
+                </div>
+                <div class="state-pill" role="listitem" onclick="app.selectState(this,'Bihar')"><span
+                        class="state-flag">🏳</span>
+                    <div>
+                        <div class="state-name">Bihar</div>
+                        <div class="state-issuer">45+ Issuers</div>
+                    </div>
+                </div>
+                <div class="state-pill" role="listitem" onclick="app.selectState(this,'Delhi')"><span
+                        class="state-flag">🏳</span>
+                    <div>
+                        <div class="state-name">Delhi</div>
+                        <div class="state-issuer">110+ Issuers</div>
+                    </div>
+                </div>
+                <div class="state-pill" role="listitem" onclick="app.selectState(this,'Gujarat')"><span
+                        class="state-flag">🏳</span>
+                    <div>
+                        <div class="state-name">Gujarat</div>
+                        <div class="state-issuer">110+ Issuers</div>
+                    </div>
+                </div>
+                <div class="state-pill" role="listitem" onclick="app.selectState(this,'Karnataka')"><span
+                        class="state-flag">🏳</span>
+                    <div>
+                        <div class="state-name">Karnataka</div>
+                        <div class="state-issuer">200+ Issuers</div>
+                    </div>
+                </div>
+                <div class="state-pill" role="listitem" onclick="app.selectState(this,'Kerala')"><span
+                        class="state-flag">🏳</span>
+                    <div>
+                        <div class="state-name">Kerala</div>
+                        <div class="state-issuer">95+ Issuers</div>
+                    </div>
+                </div>
+                <div class="state-pill" role="listitem" onclick="app.selectState(this,'Maharashtra')"><span
+                        class="state-flag">🏳</span>
+                    <div>
+                        <div class="state-name">Maharashtra</div>
+                        <div class="state-issuer">300+ Issuers</div>
+                    </div>
+                </div>
+                <div class="state-pill" role="listitem" onclick="app.selectState(this,'Odisha')"><span
+                        class="state-flag">🏳</span>
+                    <div>
+                        <div class="state-name">Odisha</div>
+                        <div class="state-issuer">65+ Issuers</div>
+                    </div>
+                </div>
+                <div class="state-pill" role="listitem" onclick="app.selectState(this,'Punjab')"><span
+                        class="state-flag">🏳</span>
+                    <div>
+                        <div class="state-name">Punjab</div>
+                        <div class="state-issuer">75+ Issuers</div>
+                    </div>
+                </div>
+                <div class="state-pill" role="listitem" onclick="app.selectState(this,'Rajasthan')"><span
+                        class="state-flag">🏳</span>
+                    <div>
+                        <div class="state-name">Rajasthan</div>
+                        <div class="state-issuer">125+ Issuers</div>
+                    </div>
+                </div>
+                <div class="state-pill" role="listitem" onclick="app.selectState(this,'Tamil Nadu')"><span
+                        class="state-flag">🏳</span>
+                    <div>
+                        <div class="state-name">Tamil Nadu</div>
+                        <div class="state-issuer">120+ Issuers</div>
+                    </div>
+                </div>
+                <div class="state-pill" role="listitem" onclick="app.selectState(this,'Uttar Pradesh')"><span
+                        class="state-flag">🏳</span>
+                    <div>
+                        <div class="state-name">Uttar Pradesh</div>
+                        <div class="state-issuer">180+ Issuers</div>
+                    </div>
+                </div>
+                <div class="state-pill" role="listitem" onclick="app.selectState(this,'West Bengal')"><span
+                        class="state-flag">🏳</span>
+                    <div>
+                        <div class="state-name">West Bengal</div>
+                        <div class="state-issuer">85+ Issuers</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Banner -->
+    <section class="cta-section" aria-labelledby="cta-heading">
+        <div class="container">
+            <div class="cta-banner reveal">
+                <div class="cta-text">
+                    <h2 class="headline-md" id="cta-heading">Become a DigiLocker Partner</h2>
+                    <p>Register as an Issuer or Requester and integrate directly with India's national document
+                        platform. Serve millions of citizens digitally.</p>
+                </div>
+                <div class="cta-actions">
+                    <a href="#" class="btn btn-white"
+                        onclick="app.showToast('Redirecting to partner registration…','info');return false">Get
+                        Registered →</a>
+                    <a href="#" class="btn"
+                        style="background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3)"
+                        onclick="app.showToast('Opening partner documentation…','info');return false">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Download -->
+    <section class="app-section" aria-labelledby="app-heading">
+        <div class="container">
+            <div class="app-grid">
+                <div class="reveal">
+                    <p class="label-sm" style="margin-bottom:8px">📱 Mobile App</p>
+                    <h2 class="headline-lg" id="app-heading">Take DigiLocker Everywhere</h2>
+                    <p class="subheading" style="margin-top:12px">Access your complete document vault on the go.
+                        Available on Android and iOS — completely free.</p>
+                    <div class="app-badges">
+                        <a href="#" class="app-badge"
+                            onclick="app.showToast('Opening Google Play Store…','info');return false">
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                                <path
+                                    d="M3.18 23.76c.42.24.9.24 1.32.02L16.94 12 4.5.22C4.08 0 3.6 0 3.18.24 2.34.7 2 1.58 2 2.5v19c0 .92.34 1.8 1.18 2.26zM20.06 10.26l-2.76-1.6L14.18 12l3.12 3.34 2.76-1.6c.78-.46.78-1.56 0-2.02l-.46-.2-.54-.26zM5.56 1.84l10.3 10.3-2.92 2.92L5.56 1.84zm0 20.32 7.38-13.22 2.92 2.92-10.3 10.3z" />
+                            </svg>
+                            <div class="app-badge-text"><small>Get it on</small><strong>Google Play</strong></div>
+                        </a>
+                        <a href="#" class="app-badge" onclick="app.showToast('Opening App Store…','info');return false">
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                                <path
+                                    d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+                            </svg>
+                            <div class="app-badge-text"><small>Download on the</small><strong>App Store</strong></div>
+                        </a>
+                    </div>
+                    <div class="qr-wrap">
+                        <div class="qr-code">
+                            <div style="font-size:1.8rem">📱</div>
+                            <div style="font-size:.6rem;margin-top:4px">Scan QR</div>
+                        </div>
+                        <p style="font-size:.82rem;color:var(--c-muted)">Scan this code with your phone camera to
+                            download the DigiLocker app instantly.</p>
+                    </div>
+                </div>
+                <div class="app-visual reveal" style="transition-delay:.2s" aria-hidden="true">
+                    <div class="phone-mockup">
+                        <div class="phone-screen">
+                            <div class="phone-notch"></div>
+                            <p
+                                style="font-size:.7rem;font-weight:700;font-family:var(--ff-heading);margin-bottom:12px;color:var(--c-text)">
+                                My Vault</p>
+                            <div class="phone-doc-item">
+                                <div class="phone-doc-icon" style="background:#dbeafe">🪪</div>
+                                <div>
+                                    <div style="font-weight:600;color:var(--c-text)">Aadhaar Card</div>
+                                    <div style="color:var(--c-muted)">UIDAI</div>
+                                </div>
+                            </div>
+                            <div class="phone-doc-item">
+                                <div class="phone-doc-icon" style="background:#fef3c7">💳</div>
+                                <div>
+                                    <div style="font-weight:600;color:var(--c-text)">PAN Card</div>
+                                    <div style="color:var(--c-muted)">Income Tax</div>
+                                </div>
+                            </div>
+                            <div class="phone-doc-item">
+                                <div class="phone-doc-icon" style="background:#d1fae5">🚗</div>
+                                <div>
+                                    <div style="font-weight:600;color:var(--c-text)">Driving License</div>
+                                    <div style="color:var(--c-muted)">MoRTH</div>
+                                </div>
+                            </div>
+                            <div class="phone-doc-item">
+                                <div class="phone-doc-icon" style="background:#ede9fe">🎓</div>
+                                <div>
+                                    <div style="font-weight:600;color:var(--c-text)">Degree Cert.</div>
+                                    <div style="color:var(--c-muted)">University</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <div class="footer-logo-icon">D</div>
+                        <span class="footer-logo-text">DigiLocker</span>
+                    </div>
+                    <p class="footer-desc">India's official digital document platform. Powered by Ministry of
+                        Electronics &amp; IT under the Digital India programme.</p>
+                    <div class="footer-socials">
+                        <a href="#" class="social-btn" aria-label="Twitter">𝕏</a>
+                        <a href="#" class="social-btn" aria-label="Facebook">f</a>
+                        <a href="#" class="social-btn" aria-label="YouTube">▶</a>
+                        <a href="#" class="social-btn" aria-label="Instagram">📷</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="#">About DigiLocker</a></li>
+                        <li><a href="#">Statistics</a></li>
+                        <li><a href="#">Informational Videos</a></li>
+                        <li><a href="#">Resources</a></li>
+                        <li><a href="#">Circulars</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Support / Feedback</a></li>
+                        <li><a href="#">Technical Issues</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Terms &amp; Conditions</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">DigiLocker Policy</a></li>
+                        <li><a href="#">Accessibility</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2024 DigiLocker — Ministry of Electronics &amp; IT, Government of India</span>
+                <span>🇮🇳 Digital India | NeGD</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <script src="js/app.js"></script>
+</body>
+
+</html>

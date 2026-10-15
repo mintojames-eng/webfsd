@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In / Register — DigiLocker</title>
+    <meta name="description" content="Sign in or register for DigiLocker using your Aadhaar or mobile number." />
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+    <div class="auth-page">
+        <div class="auth-card">
+            <div class="auth-logo">
+                <div class="nav-logo-icon">D</div>
+                <h2>Welcome to DigiLocker</h2>
+                <p>Your secure digital document vault</p>
+            </div>
+
+            <div class="auth-tabs" role="tablist">
+                <button class="auth-tab active" id="tab-signin" role="tab" aria-selected="true"
+                    aria-controls="form-signin" onclick="app.switchTab('signin')">Sign In</button>
+                <button class="auth-tab" id="tab-register" role="tab" aria-selected="false"
+                    aria-controls="form-register" onclick="app.switchTab('register')">Register</button>
+            </div>
+
+            <!-- Sign In Form -->
+            <div class="auth-form active" id="form-signin" role="tabpanel" aria-labelledby="tab-signin">
+                <div class="aadhaar-info">
+                    <span>🔒</span>
+                    <span>Sign in using your Aadhaar-linked mobile number. Your data is encrypted and secure.</span>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="signin-mobile">Mobile Number / Aadhaar Number</label>
+                    <input class="form-input" type="text" id="signin-mobile"
+                        placeholder="Enter 10-digit mobile or 12-digit Aadhaar" maxlength="12" inputmode="numeric" />
+                </div>
+                <div class="form-group" id="otp-group" style="display:none">
+                    <label class="form-label" for="signin-otp">One-Time Password (OTP)</label>
+                    <div class="input-with-btn">
+                        <input class="form-input" type="text" id="signin-otp" placeholder="Enter 6-digit OTP"
+                            maxlength="6" inputmode="numeric" />
+                        <button class="input-btn" onclick="app.resendOTP()" type="button">Resend</button>
+                    </div>
+                    <p class="form-helper" id="otp-timer">OTP sent to your registered mobile number. Valid for 5:00</p>
+                </div>
+                <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:8px" id="signinCta"
+                    onclick="app.handleSignIn()">
+                    Send OTP →
+                </button>
+                <div class="divider">or continue with</div>
+                <a href="dashboard.html" class="btn btn-outline" style="width:100%;justify-content:center"
+                    onclick="app.showToast('Demo mode — signing you in…','info')">
+                    🎭 Try Demo Dashboard
+                </a>
+                <p style="text-align:center;margin-top:16px;font-size:.8rem;color:var(--c-muted)">
+                    By continuing you agree to DigiLocker's <a href="#" style="color:var(--c-brand)">Terms of Use</a>
+                </p>
+            </div>
+
+            <!-- Register Form -->
+            <div class="auth-form" id="form-register" role="tabpanel" aria-labelledby="tab-register">
+                <div class="form-group">
+                    <label class="form-label" for="reg-name">Full Name <span
+                            style="color:var(--c-danger)">*</span></label>
+                    <input class="form-input" type="text" id="reg-name" placeholder="As per Aadhaar card" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="reg-mobile">Mobile Number <span
+                            style="color:var(--c-danger)">*</span></label>
+                    <input class="form-input" type="tel" id="reg-mobile" placeholder="10-digit mobile number"
+                        maxlength="10" inputmode="numeric" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="reg-aadhaar">Aadhaar Number <span
+                            style="color:var(--c-danger)">*</span></label>
+                    <div class="input-with-btn">
+                        <input class="form-input" type="text" id="reg-aadhaar" placeholder="12-digit Aadhaar number"
+                            maxlength="12" inputmode="numeric" />
+                        <button class="input-btn" onclick="app.verifyAadhaar()" type="button">Verify</button>
+                    </div>
+                    <p class="form-helper">Your Aadhaar is used only for verification purposes.</p>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="reg-username">Username <span
+                            style="color:var(--c-danger)">*</span></label>
+                    <input class="form-input" type="text" id="reg-username" placeholder="Choose a unique username" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="reg-pin">Security PIN <span
+                            style="color:var(--c-danger)">*</span></label>
+                    <input class="form-input" type="password" id="reg-pin" placeholder="Set a 6-digit PIN" maxlength="6"
+                        inputmode="numeric" />
+                </div>
+                <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:8px"
+                    onclick="app.handleRegister()">
+                    Create Account →
+                </button>
+                <p style="text-align:center;margin-top:16px;font-size:.8rem;color:var(--c-muted)">
+                    Already have an account? <a href="#" onclick="app.switchTab('signin');return false"
+                        style="color:var(--c-brand)">Sign In</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Theme toggle on auth page -->
+        <button onclick="app.toggleTheme()"
+            style="position:fixed;top:20px;right:20px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff;border-radius:var(--r-sm);padding:8px 14px;cursor:pointer;font-size:.85rem;backdrop-filter:blur(8px)"
+            aria-label="Toggle dark mode">🌙 Theme</button>
+        <a href="index.html"
+            style="position:fixed;top:20px;left:20px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff;border-radius:var(--r-sm);padding:8px 14px;font-size:.85rem;backdrop-filter:blur(8px)">←
+            Back</a>
+    </div>
+
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

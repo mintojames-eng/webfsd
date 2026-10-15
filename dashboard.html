@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Documents — DigiLocker Dashboard</title>
+    <meta name="description" content="Access and manage all your government documents in your DigiLocker vault." />
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-logo">
+                <div class="nav-logo-icon">D</div>
+                <span class="nav-logo-text">Digi<span>Locker</span></span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="dashboard.html" class="active">My Documents</a>
+            </div>
+            <div class="nav-actions">
+                <button class="btn-icon-nav" id="searchBtn" title="Search">🔍</button>
+                <button class="btn-icon-nav" id="themeToggle" title="Toggle theme">🌙</button>
+                <div
+                    style="display:flex;align-items:center;gap:10px;padding:6px 14px;border-radius:var(--r-full);background:var(--c-surface2);border:1px solid var(--c-border)">
+                    <div
+                        style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--c-brand),var(--c-accent));display:flex;align-items:center;justify-content:center;color:#fff;font-size:.75rem;font-weight:700">
+                        MK</div>
+                    <span style="font-size:.85rem;font-weight:600">Minto</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" role="navigation" aria-label="Dashboard navigation">
+            <div class="sidebar-section">
+                <span class="sidebar-label">Documents</span>
+                <button class="sidebar-link active" onclick="app.filterDocs('all',this)" id="sl-all">
+                    <span class="icon">📁</span> All Documents <span class="badge">12</span>
+                </button>
+                <button class="sidebar-link" onclick="app.filterDocs('identity',this)" id="sl-identity">
+                    <span class="icon">🪪</span> Identity
+                </button>
+                <button class="sidebar-link" onclick="app.filterDocs('education',this)" id="sl-education">
+                    <span class="icon">🎓</span> Education
+                </button>
+                <button class="sidebar-link" onclick="app.filterDocs('transport',this)" id="sl-transport">
+                    <span class="icon">🚗</span> Transport
+                </button>
+                <button class="sidebar-link" onclick="app.filterDocs('health',this)" id="sl-health">
+                    <span class="icon">🏥</span> Health
+                </button>
+                <button class="sidebar-link" onclick="app.filterDocs('government',this)" id="sl-government">
+                    <span class="icon">🏛</span> Government
+                </button>
+            </div>
+            <div class="sidebar-section">
+                <span class="sidebar-label">Manage</span>
+                <button class="sidebar-link" onclick="app.showToast('Upload feature coming soon!','info')">
+                    <span class="icon">⬆️</span> Upload Document
+                </button>
+                <button class="sidebar-link" onclick="app.showToast('Shared documents section','info')">
+                    <span class="icon">📤</span> Shared by Me
+                </button>
+                <button class="sidebar-link" onclick="app.showToast('Activity log coming soon!','info')">
+                    <span class="icon">📋</span> Activity Log
+                </button>
+            </div>
+            <div class="sidebar-section">
+                <span class="sidebar-label">Account</span>
+                <button class="sidebar-link" onclick="app.showToast('Profile settings','info')">
+                    <span class="icon">👤</span> Profile
+                </button>
+                <button class="sidebar-link" onclick="app.showToast('Security settings','info')">
+                    <span class="icon">🔒</span> Security
+                </button>
+                <button class="sidebar-link" onclick="window.location.href='index.html'">
+                    <span class="icon">🚪</span> Sign Out
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <div class="dashboard-header">
+                <h1>Good morning, Minto! 👋</h1>
+                <p>You have 12 documents in your vault · Last sync: just now</p>
+            </div>
+
+            <!-- Stats -->
+            <div class="dash-stats">
+                <div class="dash-stat-card">
+                    <div class="dash-stat-icon" style="background:#dbeafe">📁</div>
+                    <div>
+                        <div class="dash-stat-val">12</div>
+                        <div class="dash-stat-label">Total Documents</div>
+                    </div>
+                </div>
+                <div class="dash-stat-card">
+                    <div class="dash-stat-icon" style="background:#d1fae5">✅</div>
+                    <div>
+                        <div class="dash-stat-val">10</div>
+                        <div class="dash-stat-label">Verified</div>
+                    </div>
+                </div>
+                <div class="dash-stat-card">
+                    <div class="dash-stat-icon" style="background:#fef3c7">📤</div>
+                    <div>
+                        <div class="dash-stat-val">4</div>
+                        <div class="dash-stat-label">Shared Recently</div>
+                    </div>
+                </div>
+                <div class="dash-stat-card">
+                    <div class="dash-stat-icon" style="background:#ede9fe">🔔</div>
+                    <div>
+                        <div class="dash-stat-val">2</div>
+                        <div class="dash-stat-label">Expiring Soon</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Bar -->
+            <div class="filter-bar" role="group" aria-label="Document category filters">
+                <button class="filter-btn active" onclick="app.filterCards('all',this)" id="fb-all">All</button>
+                <button class="filter-btn" onclick="app.filterCards('identity',this)" id="fb-identity">🪪
+                    Identity</button>
+                <button class="filter-btn" onclick="app.filterCards('education',this)" id="fb-education">🎓
+                    Education</button>
+                <button class="filter-btn" onclick="app.filterCards('transport',this)" id="fb-transport">🚗
+                    Transport</button>
+                <button class="filter-btn" onclick="app.filterCards('health',this)" id="fb-health">🏥 Health</button>
+                <button class="filter-btn" onclick="app.filterCards('government',this)" id="fb-government">🏛
+                    Government</button>
+            </div>
+
+            <!-- Documents Grid -->
+            <div class="docs-grid" id="docsGrid">
+
+                <div class="doc-card" data-cat="identity">
+                    <div class="doc-card-header">
+                        <div class="doc-icon" style="background:#dbeafe">🪪</div>
+                        <span style="color:var(--c-muted);cursor:pointer;padding:4px"
+                            onclick="app.showToast('Document menu opened','info')">⋯</span>
+                    </div>
+                    <div class="doc-name">Aadhaar Card</div>
+                    <div class="doc-issuer">Unique Identification Authority of India (UIDAI)</div>
+                    <div class="doc-footer">
+                        <span class="doc-date">Updated: Jan 2024</span>
+                        <span class="doc-badge verified">✓ Verified</span>
+                    </div>
+                    <div class="doc-actions">
+                        <button class="doc-action-view" onclick="app.viewDoc('Aadhaar Card')">👁 View</button>
+                        <button class="doc-action-share" onclick="app.shareDoc('Aadhaar Card')">📤 Share</button>
+                    </div>
+                </div>
+
+                <div class="doc-card" data-cat="identity">
+                    <div class="doc-card-header">
+                        <div class="doc-icon" style="background:#fef3c7">💳</div>
+                        <span style="color:var(--c-muted);cursor:pointer;padding:4px"
+                            onclick="app.showToast('Document menu opened','info')">⋯</span>
+                    </div>
+                    <div class="doc-name">PAN Card</div>
+                    <div class="doc-issuer">Income Tax Department of India</div>
+                    <div class="doc-footer">
+                        <span class="doc-date">Issued: Mar 2019</span>
+                        <span class="doc-badge verified">✓ Verified</span>
+                    </div>
+                    <div class="doc-actions">
+                        <button class="doc-action-view" onclick="app.viewDoc('PAN Card')">👁 View</button>
+                        <button class="doc-action-share" onclick="app.shareDoc('PAN Card')">📤 Share</button>
+                    </div>
+                </div>
+
+                <div class="doc-card" data-cat="identity">
+                    <div class="doc-card-header">
+                        <div class="doc-icon" style="background:#fee2e2">🗳</div>
+                        <span style="color:var(--c-muted);cursor:pointer;padding:4px"
+                            onclick="app.showToast('Document menu opened','info')">⋯</span>
+                    </div>
+                    <div class="doc-name">Voter ID Card</div>
+                    <div class="doc-issuer">Election Commission of India</div>
+                    <div class="doc-footer">
+                        <span class="doc-date">Issued: Aug 2021</span>
+                        <span class="doc-badge verified">✓ Verified</span>
+                    </div>
+                    <div class="doc-actions">
+                        <button class="doc-action-view" onclick="app.viewDoc('Voter ID Card')">👁 View</button>
+                        <button class="doc-action-share" onclick="app.shareDoc('Voter ID Card')">📤 Share</button>
+                    </div>
+                </div>
+
+                <div class="doc-card" data-cat="transport">
+                    <div class="doc-card-header">
+                        <div class="doc-icon" style="background:#d1fae5">🚗</div>
+                        <span style="color:var(--c-muted);cursor:pointer;padding:4px"
+                            onclick="app.showToast('Document menu opened','info')">⋯</span>
+                    </div>
+                    <div class="doc-name">Driving License</div>
+                    <div class="doc-issuer">Ministry of Road Transport &amp; Highways</div>
+                    <div class="doc-footer">
+                        <span class="doc-date">Expires: Dec 2033</span>
+                        <span class="doc-badge verified">✓ Verified</span>
+                    </div>
+                    <div class="doc-actions">
+                        <button class="doc-action-view" onclick="app.viewDoc('Driving License')">👁 View</button>
+                        <button class="doc-action-share" onclick="app.shareDoc('Driving License')">📤 Share</button>
+                    </div>
+                </div>
+
+                <div class="doc-card" data-cat="transport">
+                    <div class="doc-card-header">
+                        <div class="doc-icon" style="background:#ecfdf5">🏍</div>
+                        <span style="color:var(--c-muted);cursor:pointer;padding:4px"
+                            onclick="app.showToast('Document menu opened','info')">⋯</span>
+                    </div>
+                    <div class="doc-name">Vehicle Registration (RC)</div>
+                    <div class="doc-issuer">Karnataka State RTO</div>
+                    <div class="doc-footer">
+                        <span class="doc-date">Valid till: 2039</span>
+                        <span class="doc-badge verified">✓ Verified</span>
+                    </div>
+                    <div class="doc-actions">
+                        <button class="doc-action-view" onclick="app.viewDoc('Vehicle RC')">👁 View</button>
+                        <button class="doc-action-share" onclick="app.shareDoc('Vehicle RC')">📤 Share</button>
+                    </div>
+                </div>
+
+                <div class="doc-card" data-cat="education">
+                    <div class="doc-card-header">
+                        <div class="doc-icon" style="background:#ede9fe">🎓</div>
+                        <span style="color:var(--c-muted);cursor:pointer;padding:4px"
+                            onclick="app.showToast('Document menu opened','info')">⋯</span>
+                    </div>
+                    <div class="doc-name">Bachelor of Engineering</div>
+                    <div class="doc-issuer">Visvesvaraya Technological University (VTU)</div>
+                    <div class="doc-footer">
+                        <span class="doc-date">Issued: Jun 2024</span>
+                        <span class="doc-badge verified">✓ Verified</span>
+                    </div>
+                    <div class="doc-actions">
+                        <button class="doc-action-view" onclick="app.viewDoc('B.E. Degree')">👁 View</button>
+                        <button class="doc-action-share" onclick="app.shareDoc('B.E. Degree')">📤 Share</button>
+                    </div>
+                </div>
+
+                <div class="doc-card" data-cat="education">
+                    <div class="doc-card-header">
+                        <div class="doc-icon" style="background:#fdf4ff">📝</div>
+                        <span style="color:var(--c-muted);cursor:pointer;padding:4px"
+                            onclick="app.showToast('Document menu opened','info')">⋯</span>
+                    </div>
+                    <div class="doc-name">Class XII Marksheet</div>
+                    <div class="doc-issuer">Central Board of Secondary Education (CBSE)</div>
+                    <div class="doc-footer">
+                        <span class="doc-date">Issued: May 2020</span>
+                        <span class="doc-badge verified">✓ Verified</span>
+                    </div>
+                    <div class="doc-actions">
+                        <button class="doc-action-view" onclick="app.viewDoc('XII Marksheet')">👁 View</button>
+                        <button class="doc-action-share" onclick="app.shareDoc('XII Marksheet')">📤 Share</button>
+                    </div>
+                </div>
+
+                <div class="doc-card" data-cat="education">
+                    <div class="doc-card-header">
+                        <div class="doc-icon" style="background:#f0fdf4">📋</div>
+                        <span style="color:var(--c-muted);cursor:pointer;padding:4px"
+                            onclick="app.showToast('Document menu opened','info')">⋯</span>
+                    </div>
+                    <div class="doc-name">Class X Marksheet</div>
+                    <div class="doc-issuer">Central Board of Secondary Education (CBSE)</div>
+                    <div class="doc-footer">
+                        <span class="doc-date">Issued: May 2018</span>
+                        <span class="doc-badge verified">✓ Verified</span>
+                    </div>
+                    <div class="doc-actions">
+                        <button class="doc-action-view" onclick="app.viewDoc('X Marksheet')">👁 View</button>
+                        <button class="doc-action-share" onclick="app.shareDoc('X Marksheet')">📤 Share</button>
+                    </div>
+                </div>
+
+                <div class="doc-card" data-cat="health">
+                    <div class="doc-card-header">
+                        <div class="doc-icon" style="background:#fef2f2">🏥</div>
+                        <span style="color:var(--c-muted);cursor:pointer;padding:4px"
+                            onclick="app.showToast('Document menu opened','info')">⋯</span>
+                    </div>
+                    <div class="doc-name">ABHA Health ID</div>
+                    <div class="doc-issuer">National Health Authority</div>
+                    <div class="doc-footer">
+                        <span class="doc-date">Created: Feb 2023</span>
+                        <span class="doc-badge verified">✓ Verified</span>
+                    </div>
+                    <div class="doc-actions">
+                        <button class="doc-action-view" onclick="app.viewDoc('ABHA Health ID')">👁 View</button>
+                        <button class="doc-action-share" onclick="app.shareDoc('ABHA Health ID')">📤 Share</button>
+                    </div>
+                </div>
+
+                <div class="doc-card" data-cat="health">
+                    <div class="doc-card-header">
+                        <div class="doc-icon" style="background:#f0fdf4">💉</div>
+                        <span style="color:var(--c-muted);cursor:pointer;padding:4px"
+                            onclick="app.showToast('Document menu opened','info')">⋯</span>
+                    </div>
+                    <div class="doc-name">COVID-19 Vaccination Certificate</div>
+                    <div class="doc-issuer">Ministry of Health &amp; Family Welfare</div>
+                    <div class="doc-footer">
+                        <span class="doc-date">Issued: Oct 2021</span>
+                        <span class="doc-badge verified">✓ Verified</span>
+                    </div>
+                    <div class="doc-actions">
+                        <button class="doc-action-view" onclick="app.viewDoc('Vaccination Cert.')">👁 View</button>
+                        <button class="doc-action-share" onclick="app.shareDoc('Vaccination Cert.')">📤 Share</button>
+                    </div>
+                </div>
+
+                <div class="doc-card" data-cat="government">
+                    <div class="doc-card-header">
+                        <div class="doc-icon" style="background:#fefce8">📜</div>
+                        <span style="color:var(--c-muted);cursor:pointer;padding:4px"
+                            onclick="app.showToast('Document menu opened','info')">⋯</span>
+                    </div>
+                    <div class="doc-name">Income Certificate</div>
+                    <div class="doc-issuer">Revenue Department, Karnataka</div>
+                    <div class="doc-footer">
+                        <span class="doc-date">Expires: Mar 2025</span>
+                        <span class="doc-badge pending">⏳ Expiring</span>
+                    </div>
+                    <div class="doc-actions">
+                        <button class="doc-action-view" onclick="app.viewDoc('Income Certificate')">👁 View</button>
+                        <button class="doc-action-share" onclick="app.shareDoc('Income Certificate')">📤 Share</button>
+                    </div>
+                </div>
+
+                <div class="doc-card" data-cat="government">
+                    <div class="doc-card-header">
+                        <div class="doc-icon" style="background:#fdf2f8">🏠</div>
+                        <span style="color:var(--c-muted);cursor:pointer;padding:4px"
+                            onclick="app.showToast('Document menu opened','info')">⋯</span>
+                    </div>
+                    <div class="doc-name">Domicile Certificate</div>
+                    <div class="doc-issuer">Revenue Department, Karnataka</div>
+                    <div class="doc-footer">
+                        <span class="doc-date">Issued: Nov 2022</span>
+                        <span class="doc-badge pending">⏳ Expiring</span>
+                    </div>
+                    <div class="doc-actions">
+                        <button class="doc-action-view" onclick="app.viewDoc('Domicile Cert.')">👁 View</button>
+                        <button class="doc-action-share" onclick="app.shareDoc('Domicile Cert.')">📤 Share</button>
+                    </div>
+                </div>
+
+            </div><!-- /docs grid -->
+
+            <!-- Upload prompt -->
+            <div style="margin-top:32px;border:2px dashed var(--c-border);border-radius:var(--r-lg);padding:32px;text-align:center;cursor:pointer;transition:all var(--transition)"
+                onmouseenter="this.style.borderColor='var(--c-brand)'"
+                onmouseleave="this.style.borderColor='var(--c-border)'"
+                onclick="app.showToast('Upload feature: drop your physical documents to get them verified','info')">
+                <div style="font-size:2rem;margin-bottom:8px">⬆️</div>
+                <div style="font-weight:700;font-family:var(--ff-heading);margin-bottom:4px">Upload a Document</div>
+                <div style="font-size:.85rem;color:var(--c-muted)">Drag &amp; drop or click to upload a document for
+                    verification</div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Search Modal -->
+    <div class="search-modal" id="searchModal" role="dialog" aria-modal="true">
+        <div class="search-box">
+            <div class="search-input-wrap">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="8" />
+                    <path d="m21 21-4.35-4.35" />
+                </svg>
+                <input type="text" placeholder="Search your documents…" id="searchInput" autofocus />
+                <button class="btn btn-ghost btn-sm" id="searchClose">✕ Esc</button>
+            </div>
+            <div class="search-suggestions">
+                <p class="label-sm" style="padding:4px 8px 8px;">Your documents</p>
+                <span class="search-tag"
+                    onclick="app.filterCards('identity',document.getElementById('fb-identity'));app.closeSearch()">🪪
+                    Identity</span>
+                <span class="search-tag"
+                    onclick="app.filterCards('education',document.getElementById('fb-education'));app.closeSearch()">🎓
+                    Education</span>
+                <span class="search-tag"
+                    onclick="app.filterCards('health',document.getElementById('fb-health'));app.closeSearch()">🏥
+                    Health</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
